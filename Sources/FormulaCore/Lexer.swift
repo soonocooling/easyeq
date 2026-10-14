@@ -120,8 +120,10 @@ struct Lexer {
             let next: Character? = i + len < n ? chars[i + len] : nil
             if Self.isLatin(last), let next, Self.isLatin(next) { continue }
             if lexicon.particles.contains(key) {
-                // 조사는 식 뒤에 붙고 뒤가 띄어져 있을 때만 `=`로 본다.
-                if isFirst || (next != nil && next != " ") { continue }
+                // 조사는 식 뒤에 붙고 뒤가 띄어진 채 무언가 이어질 때만 `=`로 본다 (`오이`는 o = 가 아님).
+                // 식 맨 앞의 `이`는 조사가 아니라 자연상수 e를 한글로 쓴 것 (`이의 x승`).
+                if isFirst, key == "이" { return (.ident("e"), len) }
+                if isFirst || next != " " { continue }
             }
             if startsLatin, chars[i].isUppercase, let up = lexicon.upper[key] {
                 return (.sym(up), len)

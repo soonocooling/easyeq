@@ -11,6 +11,10 @@ final class RobustnessTests: XCTestCase {
             "f(x, y)", "see you at 5", "I am at 5", "3개", "이상", "약", "은 3", "약 3", "x", "42",
             "", "   ", "the quick brown fox", "안녕하세요", "e-mail", "ok.", "x 더하기", "2 3",
             "첫째 줄\n둘째 줄",
+            // 한글 알파벳 이름과 겹치는 일반 단어
+            // 글자+숫자 단어는 하첨자로 보지 않는다
+            "A4", "F1", "mp3", "ab1", "sub", "아래첨자",
+            "오이", "비가 온다", "아이", "유리", "에이스", "티비", "지구", "엠티", "씨앗", "오늘 비", "에이 비 씨", "엑스", "알",
         ]
         for input in inputs {
             XCTAssertEqual(engine.candidates(for: input), [], input)

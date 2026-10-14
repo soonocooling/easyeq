@@ -13,7 +13,8 @@ macOS 메뉴바에 상주하다가, 한글·영어로 쓴 수식 표현을 드�
 ## 구조
 
 - `Sources/FormulaCore` — Lexer → Parser(AST) → 모호성 확장 → 유니코드/LaTeX 렌더러. UI 의존 없음.
-- `Sources/EasyEqSpike` — Phase 0 검증용 임시 앱 (버릴 코드).
+- `Sources/EasyEqSpike` — Phase 0 검증용 임시 앱 (버릴 코드). 드래그 모드와 실시간 입력 모드를 메뉴에서 전환.
+- `docs/manual.html`, `docs/manual.en.html` — 앱 메뉴의 "사용 설명서"로 열리는 설명서 (한국어/영어, 시스템 언어로 선택). 빌드 스크립트가 앱 번들에 넣는다.
 - `Tests/FormulaCoreTests` — 골든 테스트, 오탐·퍼징·결정성 테스트.
 
 ## 사용

@@ -8,16 +8,20 @@ final class Parser {
     private let toks: [Token]
     /// 띄어 쓴 근호·절댓값의 범위를 넓게(가감 수준까지) 잡는 해석.
     private let wide: Bool
+    /// 붙여 쓴 근호·절댓값도 뒤의 가감까지 묶는 해석 (`절댓값x-1` → |x − 1|). 짧은 입력에만 쓴다.
+    private let greedy: Bool
     private var pos = 0
     private var absDepth = 0
     private var steps = 0
     private(set) var usedWide = false
+    private(set) var usedGreedy = false
 
     private static let stepLimit = 5000
 
-    init(_ toks: [Token], wide: Bool) {
+    init(_ toks: [Token], wide: Bool, greedy: Bool = false) {
         self.toks = toks
         self.wide = wide
+        self.greedy = greedy
     }
 
     func parse() throws -> Node {
@@ -316,6 +320,8 @@ final class Parser {
             } else if wide, next.spaceBefore || sawOf {
                 usedWide = true
                 arg = try parseAdditive()
+            } else if greedy {
+                arg = try parseGreedyArgument()
             } else {
                 arg = try parseNarrowArgument()
             }
@@ -334,6 +340,17 @@ final class Parser {
             return try parseFunction(kind)
         }
         return try parsePostfixed(attachedOnly: true)
+    }
+
+    /// 붙여 쓴 항들을 `+`/`−`로 이은 범위. 명시적 곱하기·관계에서는 멈춘다.
+    private func parseGreedyArgument() throws -> Node {
+        var left = try parseJuxtaposition()
+        while case .bin(let op) = peek, op.level == .additive {
+            pos += 1
+            usedGreedy = true
+            left = .binary(op, left, try parseJuxtaposition())
+        }
+        return left
     }
 
     // MARK: 적분·합·극한

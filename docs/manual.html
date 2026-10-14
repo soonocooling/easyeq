@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EasyEq 사용 설명서</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1d1d1f;
+    --muted: #6e6e73;
+    --line: #e5e5ea;
+    --code-bg: #f2f2f7;
+    --accent: #0a66d8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1e;
+      --fg: #f2f2f7;
+      --muted: #a1a1a6;
+      --line: #3a3a3c;
+      --code-bg: #2c2c2e;
+      --accent: #4c9bff;
+    }
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 14px/1.6 -apple-system, "Apple SD Gothic Neo", sans-serif;
+    margin: 0;
+    padding: 24px 28px 48px;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 28px 0 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+  h3 { font-size: 14px; margin: 18px 0 6px; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  code, kbd {
+    font: 13px ui-monospace, "SF Mono", Menlo, monospace;
+    background: var(--code-bg);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+  kbd { border: 1px solid var(--line); }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 12px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  .note { color: var(--muted); font-size: 13px; }
+  a { color: var(--accent); text-decoration: none; }
+  nav a { margin-right: 12px; }
+  .lang { float: right; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<a class="lang" href="manual.en.html">English</a>
+<h1>EasyEq 사용 설명서</h1>
+<p class="lead">한글·영어로 쓴 수식 표현을 유니코드 수식으로 바꿔 주는 메뉴 막대 앱입니다. 예: <code>루트2 곱하기 루트3</code> → <code>√2 × √3</code></p>
+
+<nav>
+  <a href="#start">시작하기</a>
+  <a href="#modes">두 가지 모드</a>
+  <a href="#keys">키 정리</a>
+  <a href="#write">수식 쓰는 법</a>
+  <a href="#trouble">문제 해결</a>
+</nav>
+
+<h2 id="start">시작하기</h2>
+<ol>
+  <li>앱을 처음 실행하면 <b>접근성 권한</b>을 요청합니다. <i>시스템 설정 → 개인정보 보호 및 보안 → 손쉬운 사용</i>에서 EasyEqSpike를 켜십시오. 앱을 다시 시작할 필요는 없습니다.</li>
+  <li>메뉴 막대에 <code>√?</code> 또는 <code>√⌨</code>가 보이면 사용할 준비가 된 것입니다. <code>√✕</code>는 권한이 없다는 뜻입니다.</li>
+  <li>메뉴 막대 아이콘을 눌러 모드를 고를 수 있습니다. 마지막으로 고른 모드는 다음 실행 때도 유지됩니다.</li>
+</ol>
+
+<table>
+  <tr><th>아이콘</th><th>뜻</th></tr>
+  <tr><td><code>√?</code></td><td>드래그 모드</td></tr>
+  <tr><td><code>√⌨</code></td><td>실시간 입력 모드</td></tr>
+  <tr><td><code>√✕</code></td><td>접근성 권한 없음</td></tr>
+</table>
+
+<h2 id="modes">두 가지 모드</h2>
+
+<h3>드래그 모드</h3>
+<p>이미 써 둔 글에서 수식 부분을 드래그하거나 더블클릭으로 선택하면, 그 자리에 후보 팝업이 나타납니다.</p>
+<ul>
+  <li>후보를 <b>클릭</b>하거나 숫자 키 <kbd>1</kbd>~<kbd>5</kbd>를 누르면 선택한 글이 그 후보로 바뀝니다.</li>
+  <li><kbd>Enter</kbd>를 누르면 첫 번째 후보를 고릅니다.</li>
+  <li><kbd>Esc</kbd>나 <kbd>0</kbd>을 누르면 원래 글을 그대로 둡니다. 팝업 밖을 클릭하거나 다른 키를 눌러도 닫힙니다.</li>
+  <li>수식이 아닌 글이나 빈 곳을 드래그하면 팝업이 나타나지 않습니다.</li>
+  <li>기본적으로 <b>입력 칸</b>(채팅 입력창, 문서 편집 영역, 텍스트 필드 등)에서 드래그했을 때만 팝업이 나타납니다. 웹 페이지 본문이나 받은 메시지처럼 고칠 수 없는 글을 드래그하면 아무것도 나타나지 않습니다.</li>
+  <li>읽기 전용 글에서도 팝업을 보려면 메뉴의 <b>드래그: 입력 칸에서만 띄우기</b>를 끄십시오.</li>
+</ul>
+
+<h3>실시간 입력 모드</h3>
+<p>글을 쓰는 동안 커서 바로 앞의 내용이 수식처럼 보이면, 쓰고 있는 글자 바로 아래에 후보 창이 나타납니다. 계속 입력하면 창이 글자를 따라 움직이며 후보가 갱신되고, 수식이 아닌 내용을 쓰기 시작하면 창이 사라집니다.</p>
+<ul>
+  <li>후보를 <b>클릭</b>하거나 <kbd>⌥ Option</kbd>+<kbd>1</kbd>~<kbd>5</kbd>를 누르면, 방금 쓴 수식 부분만 그 후보로 바뀝니다. 앞의 문장은 그대로 남습니다.</li>
+  <li>숫자만 누르면 수식에 숫자를 입력하는 것과 겹치므로, 실시간 모드에서는 <kbd>⌥</kbd>를 함께 누릅니다.</li>
+  <li><kbd>Esc</kbd>를 누르면 창이 닫히고, 그 수식을 고칠 때까지 다시 나타나지 않습니다. <kbd>Esc</kbd> 입력은 사용 중인 앱에도 그대로 전달됩니다.</li>
+  <li>창 맨 위의 따옴표 안에 바뀔 부분이 표시됩니다. 예를 들어 <code>그러면 루트2 곱하기 루트3</code>을 쓰면 <code>루트2 곱하기 루트3</code>만 바뀝니다.</li>
+  <li>입력 중인 글을 읽을 수 없는 앱에서는 창이 나타나지 않습니다. 그런 앱에서는 드래그 모드를 사용하십시오.</li>
+</ul>
+<p class="note">글자의 화면 위치를 알려 주지 않는 앱에서는 입력 칸 바로 아래나 마우스 포인터 근처에 창이 나타납니다.</p>
+
+<h2 id="keys">키 정리</h2>
+<table>
+  <tr><th>동작</th><th>드래그 모드</th><th>실시간 입력 모드</th></tr>
+  <tr><td>후보 고르기</td><td>클릭, <kbd>1</kbd>~<kbd>5</kbd></td><td>클릭, <kbd>⌥1</kbd>~<kbd>⌥5</kbd></td></tr>
+  <tr><td>첫 번째 후보</td><td><kbd>Enter</kbd></td><td><kbd>⌥1</kbd></td></tr>
+  <tr><td>그대로 두기</td><td><kbd>Esc</kbd>, <kbd>0</kbd>, 팝업 밖 클릭</td><td><kbd>Esc</kbd> 또는 계속 입력</td></tr>
+  <tr><td>되돌리기</td><td colspan="2"><kbd>⌘Z</kbd>를 한 번 누르면 원래 글로 돌아갑니다</td></tr>
+</table>
+
+<h2 id="write">수식 쓰는 법</h2>
+<p>띄어쓰기는 자유롭게 하셔도 됩니다. <code>루트2곱하기루트3</code>과 <code>루트 2 곱하기 루트 3</code> 모두 인식합니다. 영어 대문자와 소문자도 모두 인식합니다.</p>
+
+<h3>사칙연산과 관계</h3>
+<table>
+  <tr><th>입력</th><th>결과</th></tr>
+  <tr><td><code>3 더하기 4</code>, <code>x 빼기 1</code></td><td>3 + 4, x − 1</td></tr>
+  <tr><td><code>a 곱하기 b</code>, <code>a times b</code></td><td>a × b (두 번째 후보 a · b)</td></tr>
+  <tr><td><code>6 나누기 2</code></td><td>6 ÷ 2</td></tr>
+  <tr><td><code>2분의 1</code>, <code>1 over 2</code></td><td>1/2</td></tr>
+  <tr><td><code>x는 3</code>, <code>x는 3이다</code></td><td>x = 3</td></tr>
+  <tr><td><code>x는 3 이상</code>, <code>x &lt;= 3</code></td><td>x ≥ 3, x ≤ 3</td></tr>
+  <tr><td><code>x 같지 않다 y</code></td><td>x ≠ y</td></tr>
+  <tr><td><code>x는 약 3</code></td><td>x ≈ 3</td></tr>
+</table>
+
+<h3>거듭제곱·근호·절댓값</h3>
+<table>
+  <tr><th>입력</th><th>결과</th></tr>
+  <tr><td><code>x제곱</code>, <code>x^2</code>, <code>x의 제곱</code></td><td>x²</td></tr>
+  <tr><td><code>x의 n승</code>, <code>x^N</code>, <code>A^T</code></td><td>xⁿ, xᴺ, Aᵀ</td></tr>
+  <tr><td><code>루트2</code>, <code>세제곱근 x</code></td><td>√2, ∛x</td></tr>
+  <tr><td><code>절댓값 x</code>, <code>x의 절댓값</code></td><td>|x|</td></tr>
+  <tr><td><code>절댓값x-1</code></td><td>|x| − 1 과 |x − 1| 을 모두 후보로 제시</td></tr>
+  <tr><td><code>루트x+1</code></td><td>√x + 1 과 √(x + 1) 을 모두 후보로 제시</td></tr>
+</table>
+<p class="note">짧은 수식에서는 근호·절댓값이 뒤의 <code>+</code>/<code>−</code>까지 묶인 해석도 함께 제시합니다. 범위를 확실히 정하려면 괄호를 쓰십시오: <code>절댓값(x-1)</code> → |x − 1|</p>
+
+<h3>하첨자 (아래첨자)</h3>
+<table>
+  <tr><th>입력</th><th>결과</th></tr>
+  <tr><td><code>x_1</code>, <code>x 아래첨자 1</code>, <code>x 하첨자 1</code>, <code>x sub 1</code></td><td>x₁</td></tr>
+  <tr><td><code>x1</code>, <code>a12</code></td><td>x₁, a₁₂</td></tr>
+  <tr><td><code>x1 + x2</code>, <code>엑스1 더하기 엑스2</code></td><td>x₁ + x₂</td></tr>
+  <tr><td><code>x_n</code>, <code>x 하첨자 n</code></td><td>xₙ</td></tr>
+  <tr><td><code>a_{n+1}</code>, <code>a_(n+1)</code>, <code>a 아래첨자 (n+1)</code></td><td>aₙ₊₁</td></tr>
+  <tr><td><code>x_{ij}</code></td><td>xᵢⱼ</td></tr>
+  <tr><td><code>x_1^2</code>, <code>x1제곱</code></td><td>x₁²</td></tr>
+</table>
+<ul class="note">
+  <li><code>_</code>나 <code>아래첨자</code> 뒤의 <b>한 글자</b>만 첨자가 됩니다. 두 글자 이상은 괄호로 묶으십시오. <code>x_ij</code> → xᵢj, <code>x_{ij}</code> → xᵢⱼ</li>
+  <li>글자 바로 뒤에 붙여 쓴 숫자(<code>x1</code>)는 하첨자로 바꾼 후보를 제시합니다. 단, <code>mp3</code>처럼 여러 글자 단어 뒤의 숫자와, <code>A4</code>·<code>F1</code>처럼 대문자+숫자만 따로 있는 경우는 일반 단어로 보고 바꾸지 않습니다. <code>A1 + A2</code>처럼 식 안에서는 대문자도 바꿉니다.</li>
+  <li><code>x2</code>처럼 한 자리 숫자(2~9)를 붙여 쓰면 하첨자(x₂)와 거듭제곱(x²)을 모두 후보로 제시합니다. 첫 번째 후보는 하첨자입니다.</li>
+  <li>유니코드에 하첨자 글자가 없는 문자(b, c, d, f, g, q, w, y, z와 모든 대문자)는 <code>x_b</code>처럼 원래 표기로 남습니다.</li>
+</ul>
+
+<h3>영어 알파벳을 한글로 쓰기</h3>
+<p>변수를 한글 발음으로 써도 영어 알파벳으로 인식합니다. 예: <code>에이제곱 더하기 비제곱은 씨제곱</code> → a² + b² = c²</p>
+<table>
+  <tr><th>알파벳</th><th>한글</th><th>알파벳</th><th>한글</th><th>알파벳</th><th>한글</th></tr>
+  <tr><td>a</td><td>에이</td><td>j</td><td>제이</td><td>s</td><td>에스</td></tr>
+  <tr><td>b</td><td>비</td><td>k</td><td>케이</td><td>t</td><td>티</td></tr>
+  <tr><td>c</td><td>씨, 시</td><td>l</td><td>엘</td><td>u</td><td>유</td></tr>
+  <tr><td>d</td><td>디</td><td>m</td><td>엠</td><td>v</td><td>브이</td></tr>
+  <tr><td>e</td><td>이 (식 맨 앞에서만)</td><td>n</td><td>엔</td><td>w</td><td>더블유</td></tr>
+  <tr><td>f</td><td>에프</td><td>o</td><td>오</td><td>x</td><td>엑스</td></tr>
+  <tr><td>g</td><td>지, 쥐</td><td>p</td><td>피</td><td>y</td><td>와이</td></tr>
+  <tr><td>h</td><td>에이치</td><td>q</td><td>큐</td><td>z</td><td>제트, 지드, 즈</td></tr>
+  <tr><td>i</td><td>아이</td><td>r</td><td>알</td><td></td><td></td></tr>
+</table>
+<ul class="note">
+  <li>대문자는 <code>대문자 에이</code> → A 와 같이 씁니다.</li>
+  <li><code>이</code>는 조사(“x<b>이</b> 3”)와 겹치므로, 식 맨 앞에 올 때만 e로 인식합니다. 예: <code>이의 엑스승</code> → eˣ</li>
+  <li><code>아이</code>, <code>오이</code>, <code>비가 온다</code>처럼 단어 하나만 있거나 일반 문장이면 수식으로 보지 않습니다. 숫자·괄호·연산과 함께 쓰면 인식합니다: <code>에프(엑스)</code> → f(x), <code>2에이</code> → 2a</li>
+  <li>그리스 문자 φ는 <code>퓌</code>, <code>화이</code>, <code>phi</code>로 씁니다. <code>피</code>는 p로 인식합니다.</li>
+</ul>
+
+<h3>그리스 문자와 기호</h3>
+<table>
+  <tr><th>입력</th><th>결과</th></tr>
+  <tr><td><code>알파</code>, <code>베타</code>, <code>세타</code>, <code>파이</code>, <code>오메가</code></td><td>α, β, θ, π, ω</td></tr>
+  <tr><td><code>대문자 델타</code>, <code>Delta</code></td><td>Δ</td></tr>
+  <tr><td><code>무한대</code>, <code>에이치바</code>, <code>나블라</code></td><td>∞, ħ, ∇</td></tr>
+  <tr><td><code>A 합집합 B</code>, <code>x in A</code></td><td>A ∪ B, x ∈ A</td></tr>
+</table>
+
+<h3>미적분</h3>
+<table>
+  <tr><th>입력</th><th>결과</th></tr>
+  <tr><td><code>dy/dx</code>, <code>디와이/디엑스</code></td><td>dy/dx</td></tr>
+  <tr><td><code>라운드f/라운드x</code></td><td>∂f/∂x</td></tr>
+  <tr><td><code>y'</code>, <code>y 프라임</code></td><td>y′</td></tr>
+  <tr><td><code>인테그랄 0부터 1까지 x제곱 dx</code></td><td>∫₀¹ x² dx</td></tr>
+  <tr><td><code>시그마 i=1부터 n까지 i제곱</code></td><td>Σᵢ₌₁ⁿ i²</td></tr>
+  <tr><td><code>리미트 x가 0으로 갈 때 sin x</code></td><td>lim_(x→0) sin x</td></tr>
+</table>
+<p class="note">유니코드로 표현할 수 없는 첨자(예: <code>e^X</code>의 대문자 X)는 <code>e^X</code>처럼 원래 표기로 남습니다.</p>
+
+<h2 id="trouble">문제 해결</h2>
+<table>
+  <tr><th>증상</th><th>해결 방법</th></tr>
+  <tr><td>아무 반응이 없습니다</td><td>메뉴 막대가 <code>√✕</code>이면 접근성 권한을 켜십시오. 다시 빌드한 뒤 반응이 없으면 권한 목록에서 앱을 지웠다가 다시 추가하십시오.</td></tr>
+  <tr><td>수식인데 후보가 나타나지 않습니다</td><td>입력 칸이 아닌 곳을 드래그했을 수 있습니다(위 드래그 모드 설명 참고). 지원하지 않는 단어가 섞였을 수 있습니다. 위 표의 표현으로 바꿔 보십시오. 200자가 넘거나 여러 줄이면 무시합니다.</td></tr>
+  <tr><td>실시간 모드에서 창이 나타나지 않습니다</td><td>그 앱이 입력 중인 글을 접근성으로 제공하지 않는 경우입니다. 드래그 모드로 바꿔 사용하십시오.</td></tr>
+  <tr><td>엉뚱한 부분이 바뀌었습니다</td><td><kbd>⌘Z</kbd>로 되돌린 뒤, 메뉴의 <b>로그 열기</b>에서 어느 앱에서 생긴 일인지 확인하십시오.</td></tr>
+  <tr><td>비밀번호 입력 칸에서는 어떻게 됩니까?</td><td>보안 입력 중에는 아무것도 읽지 않습니다.</td></tr>
+</table>
+
+<h2>개인정보</h2>
+<p>모든 처리는 이 Mac 안에서만 이루어집니다. 로그(<code>~/Library/Logs/EasyEqSpike.log</code>)에는 앱 이름, 읽기 방식, 글자 수, 후보 개수만 기록되며, 선택하거나 입력한 글 자체는 기록되지 않습니다. 치환할 때 클립보드를 잠시 사용하지만 0.2초 뒤 원래 내용으로 되돌립니다.</p>
+
+</body>
+</html>

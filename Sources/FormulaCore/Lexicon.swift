@@ -18,6 +18,7 @@ struct Lexicon {
         buildFunctions()
         buildSymbols()
         buildGreek()
+        buildLatinNames()
         for (spoken, pair) in userEntries where pair.count == 2 {
             let key = spoken.trimmingCharacters(in: .whitespaces).lowercased()
             guard !key.isEmpty else { continue }
@@ -83,7 +84,7 @@ struct Lexicon {
 
     private mutating func buildStructure() {
         add(["^", "**"], .caret)
-        add(["_"], .underscore)
+        add(["_", "아래첨자", "하첨자", "밑첨자", "sub", "subscript"], .underscore)
         add(["'", "’", "′", "프라임", "prime"], .prime)
         add(["!", "팩토리얼", "factorial"], .bang)
         add(["(", "괄호 열고", "여는 괄호"], .lparen)
@@ -160,7 +161,8 @@ struct Lexicon {
             ("rho", ["로"], "ρ", nil),
             ("sigma", ["시그마"], "σ", nil),
             ("tau", ["타우"], "τ", nil),
-            ("phi", ["피"], "φ", "Φ"),
+            // `피`는 라틴 p (buildLatinNames).
+            ("phi", ["퓌", "화이"], "φ", "Φ"),
             ("chi", ["카이"], "χ", nil),
             ("psi", ["프사이"], "ψ", "Ψ"),
             ("omega", ["오메가"], "ω", "Ω"),
@@ -174,5 +176,23 @@ struct Lexicon {
             add([upperChar] + korean.map { "대문자 " + $0 }, .sym(sym))
         }
         upper["sigma"] = Ops.sum
+    }
+
+    /// 한글로 쓴 영어 알파벳 (`에이` → a, `대문자 에이` → A).
+    /// `디`는 미분 d와 같이 쓰고, `이`(e)는 조사와 겹쳐 Lexer가 식 맨 앞에서만 처리한다.
+    private mutating func buildLatinNames() {
+        let names: [(String, [String])] = [
+            ("a", ["에이"]), ("b", ["비"]), ("c", ["씨", "시"]), ("f", ["에프"]), ("g", ["지", "쥐"]),
+            ("h", ["에이치"]), ("i", ["아이"]), ("j", ["제이"]), ("k", ["케이"]), ("l", ["엘"]),
+            ("m", ["엠"]), ("n", ["엔"]), ("o", ["오"]), ("p", ["피"]), ("q", ["큐"]), ("r", ["알"]),
+            ("s", ["에스"]), ("t", ["티"]), ("u", ["유"]), ("v", ["브이"]), ("w", ["더블유"]),
+            ("x", ["엑스"]), ("y", ["와이"]), ("z", ["제트", "지드", "즈"]),
+        ]
+        for (letter, korean) in names {
+            add(korean, .ident(letter))
+            add(korean.map { "대문자 " + $0 }, .ident(letter.uppercased()))
+        }
+        add(["대문자 디"], .ident("D"))
+        add(["대문자 이"], .ident("E"))
     }
 }

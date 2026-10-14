@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EasyEq User Guide</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1d1d1f;
+    --muted: #6e6e73;
+    --line: #e5e5ea;
+    --code-bg: #f2f2f7;
+    --accent: #0a66d8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1e;
+      --fg: #f2f2f7;
+      --muted: #a1a1a6;
+      --line: #3a3a3c;
+      --code-bg: #2c2c2e;
+      --accent: #4c9bff;
+    }
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 14px/1.6 -apple-system, "Apple SD Gothic Neo", sans-serif;
+    margin: 0;
+    padding: 24px 28px 48px;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 28px 0 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+  h3 { font-size: 14px; margin: 18px 0 6px; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  code, kbd {
+    font: 13px ui-monospace, "SF Mono", Menlo, monospace;
+    background: var(--code-bg);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+  kbd { border: 1px solid var(--line); }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 12px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  .note { color: var(--muted); font-size: 13px; }
+  a { color: var(--accent); text-decoration: none; }
+  nav a { margin-right: 12px; }
+  .lang { float: right; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<a class="lang" href="manual.html">한국어</a>
+<h1>EasyEq User Guide</h1>
+<p class="lead">EasyEq is a menu bar app that turns math written in plain Korean or English into Unicode math. Example: <code>sqrt 2 times sqrt 3</code> → <code>√2 × √3</code></p>
+
+<nav>
+  <a href="#start">Getting started</a>
+  <a href="#modes">Modes</a>
+  <a href="#keys">Keys</a>
+  <a href="#write">Writing math</a>
+  <a href="#trouble">Troubleshooting</a>
+</nav>
+
+<h2 id="start">Getting started</h2>
+<ol>
+  <li>On first launch, EasyEq asks for <b>Accessibility</b> permission. Turn on EasyEqSpike in <i>System Settings → Privacy &amp; Security → Accessibility</i>. You do not need to restart the app.</li>
+  <li>When the menu bar shows <code>√?</code> or <code>√⌨</code>, EasyEq is ready. <code>√✕</code> means permission is missing.</li>
+  <li>Click the menu bar icon to switch modes. EasyEq remembers the last mode you chose.</li>
+</ol>
+
+<table>
+  <tr><th>Icon</th><th>Meaning</th></tr>
+  <tr><td><code>√?</code></td><td>Drag mode</td></tr>
+  <tr><td><code>√⌨</code></td><td>Live typing mode</td></tr>
+  <tr><td><code>√✕</code></td><td>No Accessibility permission</td></tr>
+</table>
+
+<h2 id="modes">Modes</h2>
+
+<h3>Drag mode</h3>
+<p>Select math in text you have already written, by dragging or double-clicking, and a list of candidates appears next to the selection.</p>
+<ul>
+  <li><b>Click</b> a candidate or press <kbd>1</kbd>–<kbd>5</kbd> to replace the selection with it.</li>
+  <li>Press <kbd>Enter</kbd> to pick the first candidate.</li>
+  <li>Press <kbd>Esc</kbd> or <kbd>0</kbd> to keep the original text. Clicking outside the list or pressing any other key also closes it.</li>
+  <li>Selecting ordinary text or empty space shows nothing.</li>
+  <li>By default the list appears only when you select text in an <b>editable field</b> (a chat box, a document, a text field). Selecting read-only text, such as a web page or a message you received, shows nothing.</li>
+  <li>To use drag mode on read-only text as well, turn off <b>드래그: 입력 칸에서만 띄우기</b> (Drag: editable fields only) in the menu.</li>
+</ul>
+
+<h3>Live typing mode</h3>
+<p>While you type, EasyEq watches the text just before the cursor. When it looks like math, a candidate list appears right below the text you are writing. It follows your text and updates as you type, and disappears once you move on to ordinary text.</p>
+<ul>
+  <li><b>Click</b> a candidate or press <kbd>⌥ Option</kbd>+<kbd>1</kbd>–<kbd>5</kbd> to replace only the math you just typed. The rest of the sentence stays as it is.</li>
+  <li>Plain digits would clash with typing numbers, so live mode uses <kbd>⌥</kbd> with the digit.</li>
+  <li>Press <kbd>Esc</kbd> to close the list. It stays closed until you change that expression. The <kbd>Esc</kbd> key still reaches the app you are typing in.</li>
+  <li>The quoted line at the top of the list shows exactly what will be replaced. If you type <code>so sqrt 2 times sqrt 3</code>, only <code>sqrt 2 times sqrt 3</code> is replaced.</li>
+  <li>Some apps do not expose the text being typed. The list does not appear there; use drag mode instead.</li>
+</ul>
+<p class="note">If an app does not report where its text is on screen, the list appears just below the input field or near the mouse pointer.</p>
+
+<h2 id="keys">Keys</h2>
+<table>
+  <tr><th>Action</th><th>Drag mode</th><th>Live typing mode</th></tr>
+  <tr><td>Pick a candidate</td><td>Click, <kbd>1</kbd>–<kbd>5</kbd></td><td>Click, <kbd>⌥1</kbd>–<kbd>⌥5</kbd></td></tr>
+  <tr><td>Pick the first candidate</td><td><kbd>Enter</kbd></td><td><kbd>⌥1</kbd></td></tr>
+  <tr><td>Keep the original</td><td><kbd>Esc</kbd>, <kbd>0</kbd>, click outside</td><td><kbd>Esc</kbd>, or keep typing</td></tr>
+  <tr><td>Undo</td><td colspan="2">Press <kbd>⌘Z</kbd> once to restore the original text</td></tr>
+</table>
+
+<h2 id="write">Writing math</h2>
+<p>Spacing is flexible: <code>sqrt2 times sqrt3</code> and <code>sqrt 2 times sqrt 3</code> both work. Upper- and lowercase letters are both recognized. Korean phrases work too; see the Korean guide for the full Korean vocabulary.</p>
+
+<h3>Arithmetic and relations</h3>
+<table>
+  <tr><th>Type</th><th>Result</th></tr>
+  <tr><td><code>3 plus 4</code>, <code>x minus 1</code></td><td>3 + 4, x − 1</td></tr>
+  <tr><td><code>a times b</code></td><td>a × b (second candidate: a · b)</td></tr>
+  <tr><td><code>6 divided by 2</code></td><td>6 ÷ 2</td></tr>
+  <tr><td><code>1 over 2</code></td><td>1/2</td></tr>
+  <tr><td><code>x equals 3</code></td><td>x = 3</td></tr>
+  <tr><td><code>x &gt;= 3</code>, <code>x &lt;= 3</code></td><td>x ≥ 3, x ≤ 3</td></tr>
+  <tr><td><code>x not equal to y</code></td><td>x ≠ y</td></tr>
+  <tr><td><code>x approx 3</code></td><td>x ≈ 3</td></tr>
+</table>
+
+<h3>Powers, roots, absolute value</h3>
+<table>
+  <tr><th>Type</th><th>Result</th></tr>
+  <tr><td><code>x squared</code>, <code>x^2</code></td><td>x²</td></tr>
+  <tr><td><code>x^n</code>, <code>x^N</code>, <code>A^T</code></td><td>xⁿ, xᴺ, Aᵀ</td></tr>
+  <tr><td><code>sqrt 2</code>, <code>cube root x</code></td><td>√2, ∛x</td></tr>
+  <tr><td><code>abs x</code>, <code>absolute value of x</code></td><td>|x|</td></tr>
+  <tr><td><code>absx-1</code></td><td>Offers both |x| − 1 and |x − 1|</td></tr>
+  <tr><td><code>sqrtx+1</code></td><td>Offers both √x + 1 and √(x + 1)</td></tr>
+</table>
+<p class="note">For short expressions, EasyEq also offers a reading where the root or absolute value extends over the following <code>+</code>/<code>−</code>. Use parentheses to be explicit: <code>abs(x-1)</code> → |x − 1|</p>
+
+<h3>Subscripts</h3>
+<table>
+  <tr><th>Type</th><th>Result</th></tr>
+  <tr><td><code>x_1</code>, <code>x sub 1</code>, <code>x subscript 1</code></td><td>x₁</td></tr>
+  <tr><td><code>x1</code>, <code>a12</code></td><td>x₁, a₁₂</td></tr>
+  <tr><td><code>x1 + x2</code></td><td>x₁ + x₂</td></tr>
+  <tr><td><code>x_n</code>, <code>x sub n</code></td><td>xₙ</td></tr>
+  <tr><td><code>a_{n+1}</code>, <code>a_(n+1)</code></td><td>aₙ₊₁</td></tr>
+  <tr><td><code>x_{ij}</code></td><td>xᵢⱼ</td></tr>
+  <tr><td><code>x_1^2</code></td><td>x₁²</td></tr>
+</table>
+<ul class="note">
+  <li>Only the <b>single character</b> after <code>_</code> or <code>sub</code> becomes a subscript. Wrap longer subscripts in braces or parentheses: <code>x_ij</code> → xᵢj, <code>x_{ij}</code> → xᵢⱼ</li>
+  <li>A number written right after a letter (<code>x1</code>) is offered as a subscript. Numbers after a multi-letter word (<code>mp3</code>) are left alone, and so are a lone capital letter plus number (<code>A4</code>, <code>F1</code>), which are usually ordinary words. Inside an expression such as <code>A1 + A2</code>, capitals are converted too.</li>
+  <li>With a single digit from 2 to 9, such as <code>x2</code>, both the subscript (x₂) and the power (x²) are offered. The subscript comes first.</li>
+  <li>Characters that have no Unicode subscript form (b, c, d, f, g, q, w, y, z and all capitals) stay as written, e.g. <code>x_b</code>.</li>
+</ul>
+
+<h3>Greek letters and symbols</h3>
+<table>
+  <tr><th>Type</th><th>Result</th></tr>
+  <tr><td><code>alpha</code>, <code>beta</code>, <code>theta</code>, <code>pi</code>, <code>omega</code></td><td>α, β, θ, π, ω</td></tr>
+  <tr><td><code>Delta</code> (capitalized)</td><td>Δ</td></tr>
+  <tr><td><code>infinity</code>, <code>hbar</code>, <code>nabla</code></td><td>∞, ħ, ∇</td></tr>
+  <tr><td><code>A union B</code>, <code>x in A</code></td><td>A ∪ B, x ∈ A</td></tr>
+</table>
+
+<h3>Calculus</h3>
+<table>
+  <tr><th>Type</th><th>Result</th></tr>
+  <tr><td><code>dy/dx</code></td><td>dy/dx</td></tr>
+  <tr><td><code>partial f over partial x</code></td><td>∂f/∂x</td></tr>
+  <tr><td><code>y'</code>, <code>y prime</code></td><td>y′</td></tr>
+  <tr><td><code>integral from 0 to 1 of x^2 dx</code></td><td>∫₀¹ x² dx</td></tr>
+  <tr><td><code>sum from i=1 to n of i^2</code></td><td>Σᵢ₌₁ⁿ i²</td></tr>
+</table>
+<p class="note">Scripts that Unicode cannot express (for example the capital X in <code>e^X</code>) are left as <code>e^X</code>.</p>
+
+<h2 id="trouble">Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>What to do</th></tr>
+  <tr><td>Nothing happens</td><td>If the menu bar shows <code>√✕</code>, grant Accessibility permission. If a rebuilt app stops responding, remove it from the Accessibility list and add it again.</td></tr>
+  <tr><td>No candidates for an expression</td><td>You may have selected read-only text (see Drag mode above). It may contain a word EasyEq does not know. Try the forms in the tables above. Selections over 200 characters or spanning several lines are ignored.</td></tr>
+  <tr><td>The live list never appears</td><td>That app does not expose the text being typed. Switch to drag mode there.</td></tr>
+  <tr><td>The wrong text was replaced</td><td>Press <kbd>⌘Z</kbd>, then use <b>로그 열기</b> (Open Log) in the menu to see which app it happened in.</td></tr>
+  <tr><td>What about password fields?</td><td>Nothing is read while secure input is active.</td></tr>
+</table>
+
+<h2>Privacy</h2>
+<p>Everything runs on this Mac. The log (<code>~/Library/Logs/EasyEqSpike.log</code>) records only the app name, how text was read, its length and the number of candidates — never the text you select or type. Replacing text briefly uses the clipboard, and the original clipboard contents are restored 0.2 seconds later.</p>
+
+</body>
+</html>

@@ -73,6 +73,65 @@ final class GoldenTests: XCTestCase {
         XCTAssertEqual(custom.candidates(for: "2 파이").map(\.unicode), ["2Π"])
     }
 
+    /// 짧은 식에서 붙여 쓴 근호·절댓값은 괄호로 묶은 해석도 후보로 낸다.
+    func testShortFormulaOffersGroupedArgument() {
+        XCTAssertEqual(unicode("절댓값x-1"), ["|x| − 1", "|x − 1|"])
+        XCTAssertEqual(unicode("루트x+1"), ["√x + 1", "√(x + 1)"])
+        XCTAssertEqual(unicode("절댓값x-y+1"), ["|x| − y + 1", "|x − y + 1|"])
+        XCTAssertEqual(latex("절댓값x-1").last, #"\left| x - 1 \right|"#)
+        // 명시적 곱하기에서는 멈춘다.
+        XCTAssertEqual(unicode("루트2곱하기루트3"), ["√2 × √3", "√2 · √3"])
+    }
+
+    func testUppercaseSuperscripts() {
+        XCTAssertEqual(unicode("x^N"), ["xᴺ"])
+        XCTAssertEqual(unicode("A^T"), ["Aᵀ"])
+        // 유니코드에 없는 대문자 위첨자는 LaTeX로 대체.
+        XCTAssertEqual(engine.candidates(for: "e^X").first?.needsLatex, true)
+    }
+
+    func testKoreanSpelledLatinLetters() {
+        let rows: [(String, String)] = [
+            ("에이 더하기 비", "a + b"),
+            ("에이제곱 더하기 비제곱은 씨제곱", "a² + b² = c²"),
+            ("루트 엑스", "√x"),
+            ("디와이/디엑스", "dy/dx"),
+            ("에프(엑스)", "f(x)"),
+            ("2에이", "2a"),
+            ("이의 엑스승", "eˣ"),
+            ("대문자 에이 제곱", "A²"),
+            ("엑스는 3 이상", "x ≥ 3"),
+            ("절댓값엑스-1", "|x| − 1"),
+        ]
+        for (input, expected) in rows {
+            XCTAssertEqual(unicode(input).first, expected, input)
+        }
+    }
+
+    func testSubscripts() {
+        let rows: [(String, String)] = [
+            ("x1", "x₁"),
+            ("a12", "a₁₂"),
+            ("x1+x2", "x₁ + x₂"),
+            ("A1 + A2", "A₁ + A₂"),
+            ("x1제곱", "x₁²"),
+            ("엑스1 더하기 엑스2", "x₁ + x₂"),
+            ("x 아래첨자 1", "x₁"),
+            ("x 하첨자 n", "xₙ"),
+            ("x sub 1", "x₁"),
+            ("a subscript n", "aₙ"),
+            ("x 아래첨자 (n+1)", "xₙ₊₁"),
+        ]
+        for (input, expected) in rows {
+            XCTAssertEqual(unicode(input), [expected], input)
+        }
+        XCTAssertEqual(latex("x1+x2"), ["x_1 + x_2"])
+        // 한 자리 2~9는 제곱으로 쓴 것일 수도 있어 지수 후보도 낸다.
+        XCTAssertEqual(unicode("x2"), ["x₂", "x²"])
+        XCTAssertEqual(unicode("x2 + y2 = 1"), ["x₂ + y₂ = 1", "x² + y² = 1"])
+        XCTAssertEqual(unicode("x2제곱"), ["x₂²"])
+    }
+
     // MARK: 골든 테이블 — 첫 후보 (유니코드, LaTeX)
 
     private static let golden: [(String, String, String)] = [
@@ -183,7 +242,7 @@ final class GoldenTests: XCTestCase {
         ("람다 = 2", "λ = 2", #"\lambda = 2"#),
         ("뮤 곱하기 오메가", "μ × ω", #"\mu \times \omega"#),
         ("파이 r제곱", "πr²", #"\pi r^2"#),
-        ("피", "φ", #"\phi"#),
+        ("퓌", "φ", #"\phi"#),
         ("phi", "φ", #"\phi"#),
         ("시그마", "σ", #"\sigma"#),
         ("오메가", "ω", #"\omega"#),
