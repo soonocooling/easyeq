@@ -60,55 +60,79 @@
   <a href="#start">Getting started</a>
   <a href="#modes">Modes</a>
   <a href="#keys">Keys</a>
+  <a href="#settings">Settings</a>
   <a href="#write">Writing math</a>
   <a href="#trouble">Troubleshooting</a>
 </nav>
 
 <h2 id="start">Getting started</h2>
 <ol>
-  <li>On first launch, EasyEq asks for <b>Accessibility</b> permission. Turn on EasyEqSpike in <i>System Settings → Privacy &amp; Security → Accessibility</i>. You do not need to restart the app.</li>
-  <li>When the menu bar shows <code>√?</code> or <code>√⌨</code>, EasyEq is ready. <code>√✕</code> means permission is missing.</li>
-  <li>Click the menu bar icon to switch modes. EasyEq remembers the last mode you chose.</li>
+  <li>Open <code>EasyEq.app</code> and the <b>Get started</b> window appears. Click <b>Open System Settings</b> (시스템 설정 열기) and turn on EasyEq under <i>Privacy &amp; Security → Accessibility</i>. The window updates as soon as permission is granted; no restart is needed.</li>
+  <li>The menu bar icon shows the current state.</li>
+  <li>Click the icon for on/off, modes, output format, settings and this guide.</li>
 </ol>
 
 <table>
   <tr><th>Icon</th><th>Meaning</th></tr>
-  <tr><td><code>√?</code></td><td>Drag mode</td></tr>
-  <tr><td><code>√⌨</code></td><td>Live typing mode</td></tr>
-  <tr><td><code>√✕</code></td><td>No Accessibility permission</td></tr>
+  <tr><td>√ shape</td><td>On</td></tr>
+  <tr><td>Pause (⏸) shape</td><td>Off. Nothing is read or shown</td></tr>
+  <tr><td>Warning (⚠︎) shape</td><td>No Accessibility permission. Choose <b>접근성 권한 허용하기</b> (Grant permission) in the menu</td></tr>
 </table>
 
 <h2 id="modes">Modes</h2>
+<p>Each mode can be turned on or off from the menu or in Settings, and both can be on at once.</p>
 
-<h3>Drag mode</h3>
-<p>Select math in text you have already written, by dragging or double-clicking, and a list of candidates appears next to the selection.</p>
+<h3>Show candidates on drag</h3>
+<p>Select math in text you have already written, by dragging or double-clicking, and a candidate list appears right above the selection.</p>
 <ul>
   <li><b>Click</b> a candidate or press <kbd>1</kbd>–<kbd>5</kbd> to replace the selection with it.</li>
-  <li>Press <kbd>Enter</kbd> to pick the first candidate.</li>
-  <li>Press <kbd>Esc</kbd> or <kbd>0</kbd> to keep the original text. Clicking outside the list or pressing any other key also closes it.</li>
+  <li>Use <kbd>↑</kbd> <kbd>↓</kbd> to move and <kbd>Enter</kbd> to pick. The first candidate starts highlighted.</li>
+  <li>Press <kbd>Tab</kbd> to switch every candidate between Unicode and LaTeX.</li>
+  <li>Press <kbd>Esc</kbd> or <kbd>0</kbd> to keep the original text. Clicking outside or pressing any other key also closes the list, and that key still reaches your app.</li>
   <li>Selecting ordinary text or empty space shows nothing.</li>
-  <li>By default the list appears only when you select text in an <b>editable field</b> (a chat box, a document, a text field). Selecting read-only text, such as a web page or a message you received, shows nothing.</li>
-  <li>To use drag mode on read-only text as well, turn off <b>드래그: 입력 칸에서만 띄우기</b> (Drag: editable fields only) in the menu.</li>
+  <li>By default the list appears only when you select text in an <b>editable field</b> (a chat box, a document, a text field). Read-only text, such as a web page or a message you received, shows nothing. Turn off <b>입력 칸에서 드래그할 때만</b> (Only in editable fields) in Settings to change this.</li>
 </ul>
 
-<h3>Live typing mode</h3>
+<h3>Show candidates while typing (live)</h3>
 <p>While you type, EasyEq watches the text just before the cursor. When it looks like math, a candidate list appears right below the text you are writing. It follows your text and updates as you type, and disappears once you move on to ordinary text.</p>
 <ul>
   <li><b>Click</b> a candidate or press <kbd>⌥ Option</kbd>+<kbd>1</kbd>–<kbd>5</kbd> to replace only the math you just typed. The rest of the sentence stays as it is.</li>
   <li>Plain digits would clash with typing numbers, so live mode uses <kbd>⌥</kbd> with the digit.</li>
-  <li>Press <kbd>Esc</kbd> to close the list. It stays closed until you change that expression. The <kbd>Esc</kbd> key still reaches the app you are typing in.</li>
-  <li>The quoted line at the top of the list shows exactly what will be replaced. If you type <code>so sqrt 2 times sqrt 3</code>, only <code>sqrt 2 times sqrt 3</code> is replaced.</li>
-  <li>Some apps do not expose the text being typed. The list does not appear there; use drag mode instead.</li>
+  <li>Press <kbd>Esc</kbd> to close the list. It stays closed until you change that expression. The <kbd>Esc</kbd> key still reaches your app.</li>
+  <li>The quoted line at the top shows exactly what will be replaced. If you type <code>so sqrt 2 times sqrt 3</code>, only <code>sqrt 2 times sqrt 3</code> is replaced.</li>
+  <li>Some apps do not expose the text being typed. The list does not appear there; select and drag instead.</li>
 </ul>
 <p class="note">If an app does not report where its text is on screen, the list appears just below the input field or near the mouse pointer.</p>
 
+<h3>Convert the selection now (<kbd>⌃⌥E</kbd>)</h3>
+<p>In apps where selection is not detected automatically, select the text and press <kbd>⌃⌥E</kbd>. This shortcut also works on read-only text; there, the chosen candidate is <b>copied to the clipboard</b> instead of pasted, and a short “복사됨” (Copied) note appears.</p>
+
 <h2 id="keys">Keys</h2>
 <table>
-  <tr><th>Action</th><th>Drag mode</th><th>Live typing mode</th></tr>
-  <tr><td>Pick a candidate</td><td>Click, <kbd>1</kbd>–<kbd>5</kbd></td><td>Click, <kbd>⌥1</kbd>–<kbd>⌥5</kbd></td></tr>
-  <tr><td>Pick the first candidate</td><td><kbd>Enter</kbd></td><td><kbd>⌥1</kbd></td></tr>
+  <tr><th>Action</th><th>Drag list</th><th>Live list</th></tr>
+  <tr><td>Pick a candidate</td><td>Click, <kbd>1</kbd>–<kbd>5</kbd>, <kbd>↑</kbd><kbd>↓</kbd> + <kbd>Enter</kbd></td><td>Click, <kbd>⌥1</kbd>–<kbd>⌥5</kbd></td></tr>
+  <tr><td>Switch format</td><td><kbd>Tab</kbd> (this list only)</td><td>Follows the output format setting</td></tr>
   <tr><td>Keep the original</td><td><kbd>Esc</kbd>, <kbd>0</kbd>, click outside</td><td><kbd>Esc</kbd>, or keep typing</td></tr>
   <tr><td>Undo</td><td colspan="2">Press <kbd>⌘Z</kbd> once to restore the original text</td></tr>
+</table>
+<table>
+  <tr><th>Global shortcut (changeable in Settings)</th><th>Action</th></tr>
+  <tr><td><kbd>⌃⌥M</kbd></td><td>Turn EasyEq on or off</td></tr>
+  <tr><td><kbd>⌃⌥E</kbd></td><td>Convert the current selection</td></tr>
+</table>
+
+<h2 id="settings">Settings</h2>
+<p>Open <b>설정…</b> (Settings) from the menu. Changes apply immediately.</p>
+<table>
+  <tr><th>Setting</th><th>What it does</th></tr>
+  <tr><td>Drag / live</td><td>Turns each mode on or off. For drag, you can limit it to editable fields.</td></tr>
+  <tr><td>Launch at login</td><td>Starts EasyEq when you log in to your Mac.</td></tr>
+  <tr><td>Output format</td><td>Unicode (<code>√2 × √3</code>) or LaTeX (<code>\sqrt{2} \times \sqrt{3}</code>)</td></tr>
+  <tr><td>Maximum candidates</td><td>1 to 5</td></tr>
+  <tr><td>Spacing</td><td>Puts one space around operators (<code>x+1</code> → <code>x + 1</code>).</td></tr>
+  <tr><td>Number keys</td><td>When off, digits go to your app while the drag list is open, and you pick with <kbd>↑</kbd><kbd>↓</kbd> + <kbd>Enter</kbd>.</td></tr>
+  <tr><td>Shortcuts</td><td>Click the button, then press the new combination. It must include <kbd>⌃</kbd>, <kbd>⌥</kbd> or <kbd>⌘</kbd>.</td></tr>
+  <tr><td>Excluded apps</td><td>Nothing is read in these apps. Password managers are included by default.</td></tr>
 </table>
 
 <h2 id="write">Writing math</h2>
@@ -180,15 +204,17 @@
 <h2 id="trouble">Troubleshooting</h2>
 <table>
   <tr><th>Problem</th><th>What to do</th></tr>
-  <tr><td>Nothing happens</td><td>If the menu bar shows <code>√✕</code>, grant Accessibility permission. If a rebuilt app stops responding, remove it from the Accessibility list and add it again.</td></tr>
-  <tr><td>No candidates for an expression</td><td>You may have selected read-only text (see Drag mode above). It may contain a word EasyEq does not know. Try the forms in the tables above. Selections over 200 characters or spanning several lines are ignored.</td></tr>
-  <tr><td>The live list never appears</td><td>That app does not expose the text being typed. Switch to drag mode there.</td></tr>
-  <tr><td>The wrong text was replaced</td><td>Press <kbd>⌘Z</kbd>, then use <b>로그 열기</b> (Open Log) in the menu to see which app it happened in.</td></tr>
+  <tr><td>Nothing happens</td><td>If the menu bar icon is a warning (⚠︎), grant Accessibility permission. If it is a pause (⏸), EasyEq is off; press <kbd>⌃⌥M</kbd>. If a newly built copy stops responding, remove EasyEq from the Accessibility list and add it again.</td></tr>
+  <tr><td>No candidates for an expression</td><td>You may have selected read-only text; press <kbd>⌃⌥E</kbd> instead. The expression may also contain a word EasyEq does not know; try the forms in the tables above. Selections over 200 characters or spanning several lines are ignored.</td></tr>
+  <tr><td>The live list never appears</td><td>That app does not expose the text being typed. Select the text and drag, or press <kbd>⌃⌥E</kbd>.</td></tr>
+  <tr><td>A shortcut does nothing</td><td>Another app may use the same combination. Pick a different one in Settings.</td></tr>
+  <tr><td>I want EasyEq off in one app</td><td>Add it to <b>Excluded apps</b> in Settings.</td></tr>
+  <tr><td>The wrong text was replaced</td><td>Press <kbd>⌘Z</kbd>, then use <b>로그 보기</b> (Show Log) in the menu to see which app it happened in.</td></tr>
   <tr><td>What about password fields?</td><td>Nothing is read while secure input is active.</td></tr>
 </table>
 
 <h2>Privacy</h2>
-<p>Everything runs on this Mac. The log (<code>~/Library/Logs/EasyEqSpike.log</code>) records only the app name, how text was read, its length and the number of candidates — never the text you select or type. Replacing text briefly uses the clipboard, and the original clipboard contents are restored 0.2 seconds later.</p>
+<p>Everything runs on this Mac. The log (<code>~/Library/Logs/EasyEq.log</code>) records only the app name, how text was read, its length and the number of candidates — never the text you select or type. Replacing text briefly uses the clipboard, and the original clipboard contents are restored 0.2 seconds later.</p>
 
 </body>
 </html>

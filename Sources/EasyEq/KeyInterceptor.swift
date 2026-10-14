@@ -1,21 +1,21 @@
-// 키 이벤트 탭. 드래그 팝업이 열렸거나 실시간 모드에 후보가 있을 때만 켠다.
+// 키 이벤트 탭 (F-06). 팝업이 열렸거나 실시간 후보가 있을 때만 켜고, 그 밖에는 꺼 둔다.
 
 import AppKit
-import Carbon.HIToolbox
 
-enum KeyTap {
+enum KeyInterceptor {
     private static var tap: CFMachPort?
 
-    /// 지금 상태에 맞게 켜거나 끈다.
     static func refresh() {
-        _ = setEnabled(DragMode.isOpen || LiveMode.wantsKeys)
+        setEnabled(PopupController.isOpen || LiveController.wantsKeys)
     }
 
-    static func setEnabled(_ enabled: Bool) -> Bool {
+    private static func setEnabled(_ enabled: Bool) {
         if tap == nil, enabled { create() }
-        guard let tap else { return false }
+        guard let tap else {
+            if enabled { Log.write("키 탭 생성 실패") }
+            return
+        }
         CGEvent.tapEnable(tap: tap, enable: enabled)
-        return true
     }
 
     private static func create() {
@@ -26,14 +26,15 @@ enum KeyTap {
             eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue),
             callback: { _, type, event, _ in
                 if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
-                    DispatchQueue.main.async { KeyTap.refresh() }
+                    DispatchQueue.main.async { KeyInterceptor.refresh() }
                     return Unmanaged.passUnretained(event)
                 }
+                // 탭은 메인 런루프에 붙어 있으므로 여기서 상태를 바로 읽어도 된다.
                 let keyCode = Int(event.getIntegerValueField(.keyboardEventKeycode))
-                if DragMode.isOpen {
-                    return DragMode.handleKey(keyCode) ? nil : Unmanaged.passUnretained(event)
+                if PopupController.isOpen {
+                    return PopupController.handleKey(keyCode, flags: event.flags) ? nil : Unmanaged.passUnretained(event)
                 }
-                if LiveMode.handleKey(keyCode, flags: event.flags) { return nil }
+                if LiveController.handleKey(keyCode, flags: event.flags) { return nil }
                 return Unmanaged.passUnretained(event)
             },
             userInfo: nil

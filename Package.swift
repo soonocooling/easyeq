@@ -6,10 +6,11 @@ let package = Package(
     platforms: [.macOS(.v13)],
     products: [
         .library(name: "FormulaCore", targets: ["FormulaCore"]),
+        .executable(name: "EasyEq", targets: ["EasyEq"]),
     ],
     targets: [
         .target(name: "FormulaCore"),
-        .executableTarget(name: "EasyEqSpike", dependencies: ["FormulaCore"]),
+        .executableTarget(name: "EasyEq", dependencies: ["FormulaCore"]),
         .testTarget(name: "FormulaCoreTests", dependencies: ["FormulaCore"]),
     ]
 )
