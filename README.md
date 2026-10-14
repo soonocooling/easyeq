@@ -2,6 +2,29 @@
 
 macOS 메뉴바에 상주하다가, 한글·영어로 쓴 수식 표현을 드래그하거나 입력하면 수식 후보를 띄워 그 자리를 바꿔 입력해주는 개인용 앱. 기획서는 [product-spec.md](product-spec.md), 사용법은 앱 메뉴의 "사용 설명서"([docs/manual.html](docs/manual.html), [English](docs/manual.en.html)).
 
+## 설치 (macOS 13 이상)
+
+1. [Releases](https://github.com/soonocooling/easyeq/releases/latest)에서 `EasyEq.zip`을 받아 압축을 풀고, `EasyEq.app`을 **응용 프로그램** 폴더로 옮깁니다.
+2. `EasyEq.app`을 더블클릭합니다. "확인되지 않은 개발자" 경고가 나오면 **완료**를 누릅니다.
+3. **시스템 설정 → 개인정보 보호 및 보안**을 열고 아래쪽의 "EasyEq이(가) 차단되었습니다" 옆 **그래도 열기**를 누른 뒤 암호를 입력합니다. (처음 한 번만)
+4. 뜨는 **시작하기** 창에서 **시스템 설정 열기**를 누르고 **손쉬운 사용** 목록에서 EasyEq를 켭니다.
+5. 메뉴 막대에 √ 아이콘이 보이면 준비 완료입니다. 사용법은 메뉴의 **사용 설명서**를 보십시오.
+
+> 아직 Apple 공증을 받지 않은 개인 빌드라서 3번 과정이 필요합니다. 터미널이 익숙하면 3번 대신 `xattr -dr com.apple.quarantine /Applications/EasyEq.app`을 실행해도 됩니다.
+
+직접 빌드하려면 Xcode 또는 Command Line Tools를 설치한 뒤:
+
+```sh
+git clone https://github.com/soonocooling/easyeq.git && cd easyeq
+scripts/build-app.sh --install
+```
+
+Apple Development 인증서가 없으면 임시 서명으로 빌드되며, 이때는 새로 빌드할 때마다 접근성 권한을 다시 허용해야 할 수 있습니다.
+
+### Install (English)
+
+Download `EasyEq.zip` from [Releases](https://github.com/soonocooling/easyeq/releases/latest), unzip, and move `EasyEq.app` to Applications. This build is not notarized: on first launch, dismiss the warning, then open **System Settings → Privacy & Security** and click **Open Anyway** next to EasyEq. Then grant **Accessibility** permission from the Get started window. Requires macOS 13 or later.
+
 ## 현재 상태
 
 | 단계 | 상태 |

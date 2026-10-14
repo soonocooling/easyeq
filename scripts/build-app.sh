@@ -1,6 +1,7 @@
 #!/bin/bash
 # EasyEq.app을 만들고 고정 인증서로 서명한다.
 # 서명이 바뀌면 접근성 권한이 초기화되므로 항상 같은 인증서를 쓴다.
+# 인증서가 없으면 임시 서명으로 빌드한다.
 # 사용법: scripts/build-app.sh             build/EasyEq.app 생성
 #         scripts/build-app.sh --install   빌드 후 /Applications에 설치하고 실행
 #         SIGN_IDENTITY="이름" scripts/build-app.sh
@@ -11,8 +12,10 @@ VERSION="0.2.0"
 APP="build/EasyEq.app"
 IDENTITY="${SIGN_IDENTITY:-$(security find-identity -v -p codesigning | awk -F'"' '/Apple Development/ {print $2; exit}')}"
 if [ -z "$IDENTITY" ]; then
-    echo "서명 인증서를 찾지 못했습니다. SIGN_IDENTITY를 지정하세요." >&2
-    exit 1
+    # 인증서가 없으면 임시(ad-hoc) 서명. 빌드할 때마다 서명이 바뀌어 접근성 권한을 다시 허용해야 한다.
+    echo "Apple Development 인증서가 없어 임시 서명(ad-hoc)으로 빌드합니다." >&2
+    echo "새로 빌드할 때마다 접근성 권한을 다시 허용해야 할 수 있습니다." >&2
+    IDENTITY="-"
 fi
 
 swift build -c release --product EasyEq --arch arm64 --arch x86_64
@@ -41,7 +44,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 </plist>
 PLIST
 
-codesign --force --options runtime --sign "$IDENTITY" "$APP"
+codesign --force --options runtime --timestamp=none --sign "$IDENTITY" "$APP"
 echo "빌드 완료: $APP (서명: $IDENTITY)"
 
 if [ "${1:-}" = "--install" ]; then
