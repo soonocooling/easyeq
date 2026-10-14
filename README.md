@@ -12,6 +12,16 @@ macOS 메뉴바에 상주하다가, 한글·영어로 쓴 수식 표현을 드�
 
 > 아직 Apple 공증을 받지 않은 개인 빌드라서 3번 과정이 필요합니다. 터미널이 익숙하면 3번 대신 `xattr -dr com.apple.quarantine /Applications/EasyEq.app`을 실행해도 됩니다.
 
+**터미널로 한 번에 설치** (위 1~3번 대신, "그래도 열기" 단계 없음):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/soonocooling/easyeq/main/scripts/install.sh | bash
+```
+
+**AI 에이전트(Claude Code 등)에게 맡기기** — 아래 문장을 그대로 붙여 넣으면 됩니다. 접근성 권한(4번)은 macOS가 사용자 본인에게만 허용하므로 직접 켜야 합니다.
+
+> https://github.com/soonocooling/easyeq 의 README를 읽고 EasyEq를 설치해 줘. scripts/install.sh 내용을 먼저 확인한 다음 실행하고, 끝나면 내가 직접 해야 하는 접근성 권한 허용 방법을 알려 줘.
+
 직접 빌드하려면 Xcode 또는 Command Line Tools를 설치한 뒤:
 
 ```sh
@@ -23,7 +33,7 @@ Apple Development 인증서가 없으면 임시 서명으로 빌드되며, 이�
 
 ### Install (English)
 
-Download `EasyEq.zip` from [Releases](https://github.com/soonocooling/easyeq/releases/latest), unzip, and move `EasyEq.app` to Applications. This build is not notarized: on first launch, dismiss the warning, then open **System Settings → Privacy & Security** and click **Open Anyway** next to EasyEq. Then grant **Accessibility** permission from the Get started window. Requires macOS 13 or later.
+Download `EasyEq.zip` from [Releases](https://github.com/soonocooling/easyeq/releases/latest), unzip, and move `EasyEq.app` to Applications. This build is not notarized: on first launch, dismiss the warning, then open **System Settings → Privacy & Security** and click **Open Anyway** next to EasyEq. Then grant **Accessibility** permission from the Get started window. Requires macOS 13 or later. Or install from Terminal (no Open Anyway step): `curl -fsSL https://raw.githubusercontent.com/soonocooling/easyeq/main/scripts/install.sh | bash`
 
 ## 현재 상태
 
