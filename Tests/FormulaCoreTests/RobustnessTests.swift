@@ -4,35 +4,7 @@ import XCTest
 final class RobustnessTests: XCTestCase {
     private let engine = FormulaEngine()
 
-    /// 일반 문장·단어를 드래그해도 팝업이 뜨면 안 된다 (F-05, F-11).
-    func testOrdinaryTextProducesNoCandidates() {
-        let inputs = [
-            "오늘 점심 뭐 먹지", "hello world", "it's", "cost", "sink", "and/or", "km/h", "1/2", "a+b",
-            "f(x, y)", "see you at 5", "I am at 5", "3개", "이상", "약", "은 3", "약 3", "x", "42",
-            "", "   ", "the quick brown fox", "안녕하세요", "e-mail", "ok.", "x 더하기", "2 3",
-            "첫째 줄\n둘째 줄",
-            // 한글 알파벳 이름과 겹치는 일반 단어
-            // 글자+숫자 단어는 하첨자로 보지 않는다
-            "A4", "F1", "mp3", "ab1", "sub", "아래첨자",
-            "오이", "비가 온다", "아이", "유리", "에이스", "티비", "지구", "엠티", "씨앗", "오늘 비", "에이 비 씨", "엑스", "알",
-        ]
-        for input in inputs {
-            XCTAssertEqual(engine.candidates(for: input), [], input)
-        }
-    }
-
-    func testUnbalancedBracketsProduceNoCandidates() {
-        for input in ["(x+1", "x+1)", "절댓값(x", "|x", "x^{2", "((x)"] {
-            XCTAssertEqual(engine.candidates(for: input), [], input)
-            XCTAssertEqual(engine.candidates(for: input, format: .latex), [], input)
-        }
-    }
-
-    func testOverlongInputIsIgnored() {
-        let long = Array(repeating: "x + ", count: 60).joined() + "1"
-        XCTAssertGreaterThan(long.count, FormulaEngine.maxInputLength)
-        XCTAssertEqual(engine.candidates(for: long), [])
-    }
+    // 일반 문장·괄호 불일치·200자 초과 입력의 "후보 없음"은 fixtures/formula-cases.json의 noCandidates 그룹.
 
     func testDeterministicOrder() {
         for input in ["루트 2 곱하기 x", "라운드f/라운드x", "dy/dx", "절댓값 x 빼기 1 곱하기 y"] {

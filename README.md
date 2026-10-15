@@ -52,7 +52,8 @@ Download `EasyEq.zip` from [Releases](https://github.com/soonocooling/easyeq/rel
   - `PopupController` 드래그 후보 팝업, `LiveController` 실시간 입력 후보
   - `KeyInterceptor` 키 이벤트 탭, `TextInserter` 클립보드 치환, `HotkeyManager` 전역 단축키
   - `OnboardingView`, `SettingsView`, `Windows`(설명서) 창
-- `Tests/FormulaCoreTests` — 골든 테스트, 오탐·퍼징·결정성 테스트.
+- `fixtures/formula-cases.json` — 수식 해석 공통 테스트 케이스 (입력 → 후보 전체). 모든 구현(Swift, 앞으로 C#)이 같은 결과를 내야 한다. 형식은 [fixtures/README.md](fixtures/README.md).
+- `Tests/FormulaCoreTests` — 공통 케이스 검사(`FixtureTests`), API 동작, 퍼징·결정성 테스트.
 - `docs/manual*.html` — 앱 안 설명서 (빌드 스크립트가 번들에 넣는다).
 
 ## 사용
